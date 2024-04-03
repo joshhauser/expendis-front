@@ -1,0 +1,22 @@
+@import "colors";
+@import 'fonts';
+
+* {
+  font-family: 'Work Sans', serif;
+}
+
+.expense {
+  &.amount {
+    color: red;
+  }
+}
+
+.income {
+  &.amount {
+    color: $e-green;
+  }
+}
+
+.transaction-date {
+  border-bottom: 2px solid lightgray;
+}
