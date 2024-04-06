@@ -10,13 +10,8 @@
 
 <template>
   <div>
-    <Tooltip>
-      <button
-        @mouseover="tooltipStore.setTooltip('test display tooltip')"
-        @mouseleave="tooltipStore.setTooltip('')"
-      >
-        Test tooltip
-      </button>
+    <Tooltip text="Test">
+      <button>Test tooltip</button>
     </Tooltip>
 
     <DashboardCard>

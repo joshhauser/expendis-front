@@ -6,8 +6,11 @@ export const useTooltipStore = defineStore('tooltip-store', {
     targetSize: { width: number; height: number };
   } => ({ tooltipText: '', targetSize: { width: 0, height: 0 } }),
   actions: {
-    setTooltip(tooltipText: string) {
+    setTooltipText(tooltipText: string) {
       this.tooltipText = tooltipText;
+    },
+    resetTooltipText() {
+      this.tooltipText = '';
     },
   },
   getters: {},

@@ -2,6 +2,14 @@
   import { useTooltipStore } from '@/shared/stores/tooltip-store';
   import { onMounted } from 'vue';
 
+  const props = defineProps({
+    text: {
+      type: String,
+      required: true,
+      default: () => 'tooltip',
+    },
+  });
+
   const tooltipStore = useTooltipStore();
   const margin: number = 10;
 
@@ -25,7 +33,12 @@
 
 <template>
   <div class="flex">
-    <div v-if="$slots.default" id="tooltip-target">
+    <div
+      v-if="$slots.default"
+      id="tooltip-target"
+      @mouseover="tooltipStore.setTooltipText(props.text)"
+      @mouseleave="tooltipStore.resetTooltipText()"
+    >
       <slot></slot>
     </div>
     <Transition name="tooltip">
