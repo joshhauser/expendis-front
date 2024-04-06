@@ -1,15 +1,15 @@
 <script setup lang="ts">
-  import { RouterLink, RouterView } from 'vue-router';
-  import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+  import { RouterView } from 'vue-router';
   import { useIconsStore } from '@/shared/stores/icons-store';
-  import CategoryIcon from '@/components/CategoryIcon.vue';
-  import Transaction from '@/components/Transaction.vue';
   import type { TransactionWithCategory } from '@/shared/models/transaction.model';
   import { Utils } from '@/shared/utils';
   import TransactionsSummary from '@/components/TransactionsSummary.vue';
   import DashboardCard from '@/components/DashboardCard.vue';
+  import { useTooltipStore } from '@/shared/stores/tooltip-store';
+  import Tooltip from '@/components/Tooltip.vue';
 
   const iconStore = useIconsStore();
+  const tooltipStore = useTooltipStore();
 
   const transactions: TransactionWithCategory[] = [
     {
@@ -41,6 +41,15 @@
 
 <template>
   <div>
+    <Tooltip>
+      <button
+        @mouseover="tooltipStore.setTooltip('test display tooltip')"
+        @mouseleave="tooltipStore.setTooltip('')"
+      >
+        Test tooltip
+      </button>
+    </Tooltip>
+
     <DashboardCard>
       <template #title>
         <h3>Derniers mouvements</h3>
