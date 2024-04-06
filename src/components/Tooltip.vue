@@ -54,7 +54,7 @@
     </div>
     <Transition name="tooltip">
       <div
-        class="tooltip"
+        class="tooltip align-self-center"
         v-if="showTooltip"
         :style="{
           left: targetRect.x + targetRect.width + margin + 'px',
@@ -74,7 +74,7 @@
 
   .tooltip {
     position: absolute;
-    padding: 0.25% 1%;
+    padding: 0.1% 1%;
     width: fit-content;
     font-size: 10pt;
     color: white;
