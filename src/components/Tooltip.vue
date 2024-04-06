@@ -47,6 +47,7 @@
     width: fit-content;
     height: fit-content;
   }
+
   .tooltip {
     position: absolute;
     padding: 0.25% 1%;

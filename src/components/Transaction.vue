@@ -3,6 +3,7 @@
   import CategoryIcon from '@/components/CategoryIcon.vue';
   import type { PropType } from 'vue';
   import type { TransactionWithCategory } from '@/shared/models/transaction.model';
+  import Tooltip from '@/components/Tooltip.vue';
 
   const props = defineProps({
     transaction: {
@@ -18,10 +19,18 @@
   <div>
     <div class="col w-full">
       <div class="flex align-items-center justify-content-between">
-        <CategoryIcon
-          :background-color="'gray'"
-          :icon="iconStore.getIcon('fas fa-house')"
-        />
+        <Tooltip :text="transaction?.category.label">
+          <CategoryIcon
+            :background-color="transaction?.category.color"
+            :icon="
+              iconStore.getIcon(
+                transaction?.category.icon
+                  ? transaction?.category.icon
+                  : 'fas fa-house'
+              )
+            "
+          />
+        </Tooltip>
         <div class="col">
           {{ props.transaction!.label }}
         </div>
