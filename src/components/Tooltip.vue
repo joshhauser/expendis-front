@@ -1,6 +1,5 @@
 <script setup lang="ts">
-  import { useTooltipStore } from '@/shared/stores/tooltip-store';
-  import { onMounted } from 'vue';
+  import { onMounted, ref } from 'vue';
 
   const props = defineProps({
     text: {
@@ -10,20 +9,32 @@
     },
   });
 
-  const tooltipStore = useTooltipStore();
   const margin: number = 10;
+  const tooltipTarget = ref(null);
+  const targetRect = ref<{
+    width: number;
+    height: number;
+    x: number;
+    y: number;
+  }>({
+    width: 0,
+    height: 0,
+    x: 0,
+    y: 0,
+  });
+  const showTooltip = ref<boolean>(false);
 
   const addMouseTracker = () => {
-    const tooltipTarget = document.getElementById('tooltip-target');
-    if (tooltipTarget) {
-      tooltipTarget.addEventListener('mouseover', () => {
-        const boundingRect = tooltipTarget.getBoundingClientRect();
-        tooltipStore.targetSize = {
-          width: boundingRect.width,
-          height: boundingRect.height,
-        };
-      });
-    }
+    tooltipTarget.value!.addEventListener('mouseover', () => {
+      const boundingRect = tooltipTarget.value!.getBoundingClientRect();
+
+      targetRect.value = {
+        width: boundingRect.width,
+        height: boundingRect.height,
+        x: boundingRect.x,
+        y: boundingRect.y,
+      };
+    });
   };
 
   onMounted(() => {
@@ -35,21 +46,21 @@
   <div class="flex">
     <div
       v-if="$slots.default"
-      id="tooltip-target"
-      @mouseover="tooltipStore.setTooltipText(props.text)"
-      @mouseleave="tooltipStore.resetTooltipText()"
+      ref="tooltipTarget"
+      @mouseover="showTooltip = true"
+      @mouseleave="showTooltip = false"
     >
       <slot></slot>
     </div>
     <Transition name="tooltip">
       <div
         class="tooltip"
-        v-if="tooltipStore.tooltipText !== ''"
+        v-if="showTooltip"
         :style="{
-          left: tooltipStore.targetSize.width + margin + 'px',
+          left: targetRect.x + targetRect.width + margin + 'px',
         }"
       >
-        <span>{{ tooltipStore.tooltipText }}</span>
+        <span>{{ props.text }}</span>
       </div>
     </Transition>
   </div>
