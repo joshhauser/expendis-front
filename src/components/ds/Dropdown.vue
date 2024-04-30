@@ -7,7 +7,7 @@
 
   const props = defineProps({
     modelValue: {
-      type: Object as PropType<any>,
+      type: [Object, null],
       required: true,
     },
     disabled: {
@@ -67,11 +67,11 @@
 
   const onReset = (event: any) => {
     event.stopPropagation();
-    emits('update:modelValue', undefined);
+    emits('update:modelValue', null);
   };
 
   const isValueSet = computed(() => {
-    return props.modelValue != undefined;
+    return props.modelValue != null;
   });
 </script>
 
@@ -82,7 +82,7 @@
         <div class="dropdown-input">
           <slot name="label" :selected="modelValue">
             <template v-if="isValueSet">
-              <template v-if="optionLabel != undefined">
+              <template v-if="optionLabel != null">
                 <span>{{ props.modelValue[optionLabel] }}</span>
               </template>
               <template v-else>

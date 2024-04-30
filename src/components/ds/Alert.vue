@@ -8,7 +8,7 @@
       default: () => 'Alert!',
     },
     severity: {
-      type: Object as PropType<Severity>,
+      type: [Object as PropType<Severity>, String],
       default: () => Severity.WARNING,
     },
     closable: {
