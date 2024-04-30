@@ -1,9 +1,9 @@
 <script setup lang="ts">
   import { useIconsStore } from '@/shared/stores/icons-store';
-  import CategoryIcon from '@/components/CategoryIcon.vue';
+  import CategoryIcon from '@/components/category/CategoryIcon.vue';
   import type { PropType } from 'vue';
   import type { TransactionWithCategory } from '@/shared/models/transaction.model';
-  import Tooltip from '@/components/Tooltip.vue';
+  import Tooltip from '@/components/ds/Tooltip.vue';
 
   const props = defineProps({
     transaction: {
@@ -24,9 +24,7 @@
             :background-color="transaction?.category.color"
             :icon="
               iconStore.getIcon(
-                transaction?.category.icon
-                  ? transaction?.category.icon
-                  : 'fas fa-house'
+                transaction?.category.icon ? transaction?.category.icon : 'fas fa-house'
               )
             "
           />
@@ -34,10 +32,7 @@
         <div class="col">
           {{ props.transaction!.label }}
         </div>
-        <div
-          v-if="props.transaction!.amount > 0"
-          class="col-auto income amount"
-        >
+        <div v-if="props.transaction!.amount > 0" class="col-auto income amount">
           + {{ props.transaction!.amount }} €
         </div>
         <div v-else class="col-auto expense amount">

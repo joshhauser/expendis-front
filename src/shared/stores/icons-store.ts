@@ -6,7 +6,7 @@ export const useIconsStore = defineStore('iconsStore', {
   },
   getters: {
     getIcon(state) {
-      return (iconKey: string) => state.icons[iconKey];
+      return (iconKey: string) => (iconKey ? state.icons[iconKey] : '');
     },
   },
   actions: {

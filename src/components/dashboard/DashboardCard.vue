@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <div class="col">
+  <div class="col card">
     <div class="card-title w-full">
       <slot name="title"></slot>
     </div>
@@ -14,9 +14,16 @@
 <style scoped lang="scss">
   @import '@/assets/styles/colors';
 
-  .card-title {
-    color: $e-green;
-    border-bottom: 4px solid lightgray;
-    font-weight: 500;
+  .card {
+    border: 1px solid lightgray;
+    border-radius: 10px;
+    overflow: scroll;
+    height: 100%;
+
+    .card-title {
+      color: $e-green;
+      border-bottom: 4px solid lightgray;
+      font-weight: 500;
+    }
   }
 </style>

@@ -4,8 +4,8 @@
   const props = defineProps({
     text: {
       type: String,
-      required: true,
-      default: () => 'tooltip',
+      required: false,
+      default: () => '',
     },
   });
 
