@@ -4,7 +4,7 @@ import type { Category } from '@/shared/models/category.model';
 const url: string = '/categories';
 
 export class CategoryService {
-  static restClient: RestClient = RestClient.getInstance();
+  private static restClient: RestClient = RestClient.getInstance();
 
   static getById(id: number) {
     return this.restClient.clientInstance.get<Category>(url + '/' + id);
@@ -15,10 +15,7 @@ export class CategoryService {
   }
 
   static create(category: Category) {
-    return this.restClient.clientInstance.post<Category, Category>(
-      url,
-      category
-    );
+    return this.restClient.clientInstance.post<Category, Category>(url, category);
   }
 
   static patch(id: number, category: Category) {

@@ -5,7 +5,7 @@ export interface Transaction {
   amount: number;
   label: string;
   date: Date;
-  categoryId: number;
+  categoryId: number | null;
 }
 
 export interface TransactionWithCategory extends Transaction {

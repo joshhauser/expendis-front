@@ -15,12 +15,13 @@ export interface ModalProps {
 
 export interface ModalState {
   modalState: ModalProps;
+  isOpen: boolean;
 }
 
 const defaultState = { component: null, props: {} };
 
 export const useModalStore = defineStore('modal-store', {
-  state: (): ModalState => ({ modalState: defaultState }),
+  state: (): ModalState => ({ modalState: defaultState, isOpen: false }),
   actions: {
     openModal(payload: ModalProps) {
       const { props, component, clickOutsideToClose } = payload;
@@ -29,10 +30,12 @@ export const useModalStore = defineStore('modal-store', {
         props: props || {},
         clickOutsideToClose: clickOutsideToClose || true,
       };
+      this.isOpen = true;
     },
 
     closeModal() {
       this.modalState = defaultState;
+      this.isOpen = false;
     },
   },
   getters: {},

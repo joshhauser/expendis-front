@@ -1,0 +1,35 @@
+.btn-primary {
+  background-color: #4980d0;
+
+  &:hover {
+    background-color: #285cad;
+  }
+
+  &[disabled] {
+    background-color: #90b6ec;
+  }
+}
+
+.btn-secondary {
+  background-color: #8f8f8f;
+
+  &:hover {
+    background-color: #696969;
+  }
+}
+
+.btn-success {
+  background-color: #82b96e;
+
+  &:hover {
+    background-color: #588f43;
+  }
+}
+
+.btn-danger {
+  background-color: #e1454d;
+
+  &:hover {
+    background-color: #c02930;
+  }
+}

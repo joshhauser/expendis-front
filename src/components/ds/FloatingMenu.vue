@@ -4,6 +4,7 @@
   import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
   import { useIconsStore } from '@/shared/stores/icons-store';
   import Tooltip from '@/components/ds/Tooltip.vue';
+  import { useModalStore } from '@/shared/stores/modal-store';
 
   const props = withDefaults(
     defineProps<{
@@ -25,6 +26,7 @@
   );
 
   const iconsStore = useIconsStore();
+  const modalStore = useModalStore();
 
   const opened = ref(false);
   const animated = ref(false);
@@ -98,7 +100,7 @@
         // here I check that click was outside the el and his children
         if (!(el == event.target || el.contains(event.target))) {
           // and if it did, call method provided in attribute value
-          if (opened.value) {
+          if (opened.value && !modalStore.isOpen) {
             binding.value.fct();
           }
         }

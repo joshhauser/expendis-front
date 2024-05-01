@@ -7,7 +7,6 @@
 
   const props = defineProps({
     modelValue: {
-      type: [Object, null],
       required: true,
     },
     disabled: {
@@ -56,17 +55,25 @@
   const emits = defineEmits(['update:modelValue']);
   const iconsStore = useIconsStore();
   const showOptions = ref<boolean>(false);
+  const chosenOption = ref(null);
 
   const onClick = () => {
     showOptions.value = !showOptions.value;
   };
 
   const onOptionSelect = (selectedOption: any) => {
-    emits('update:modelValue', selectedOption);
+    chosenOption.value = selectedOption;
+
+    if (props.optionValue) {
+      emits('update:modelValue', selectedOption[props.optionValue]);
+    } else {
+      emits('update:modelValue', selectedOption);
+    }
   };
 
   const onReset = (event: any) => {
     event.stopPropagation();
+    chosenOption.value = null;
     emits('update:modelValue', null);
   };
 
@@ -80,23 +87,23 @@
     <div class="dropdown border-round-lg" :class="{ opened: showOptions }" @click="onClick">
       <div class="dropdown-inputwrapper text-base p-2">
         <div class="dropdown-input">
-          <slot name="label" :selected="modelValue">
+          <slot name="label" :selected="chosenOption">
             <template v-if="isValueSet">
-              <template v-if="optionLabel != null">
-                <span>{{ props.modelValue[optionLabel] }}</span>
+              <template v-if="props.optionLabel && typeof props.modelValue == 'object'">
+                <span>{{ props.modelValue![props.optionLabel] }}</span>
               </template>
               <template v-else>
-                <span>{{ modelValue }}</span>
+                <span>{{ props.modelValue }}</span>
               </template>
             </template>
             <template v-else>
               <span class="placeholder">
-                {{ placeholder }}
+                {{ props.placeholder }}
               </span>
             </template>
           </slot>
         </div>
-        <span v-if="modelValue" class="dropdown-close dropdown-icon" @click="onReset">
+        <span v-if="props.modelValue" class="dropdown-close dropdown-icon" @click="onReset">
           <FontAwesomeIcon :icon="iconsStore.getIcon('fas fa-xmark')" />
         </span>
         <span class="dropdown-toggle dropdown-icon">
@@ -105,17 +112,19 @@
       </div>
       <div class="dropdown-options" v-if="showOptions">
         <template v-if="props.options.length == 0">
-          <li>No options.</li>
+          <div class="no-data">
+            <span>No options.</span>
+          </div>
         </template>
 
         <template v-else>
           <div class="dropdown-option" v-for="option in options" @click="onOptionSelect(option)">
             <slot name="option" :option="option">
-              <template v-if="!Utils.isStringEmpty(props.optionLabel)">
-                {{ option[props.optionLabel] }}
+              <template v-if="props.optionLabel">
+                <span>{{ option[props.optionLabel] }}</span>
               </template>
               <template v-else>
-                {{ option }}
+                <span>{{ option }}</span>
               </template>
             </slot>
           </div>
@@ -181,9 +190,13 @@
       border-bottom-right-radius: 15px;
       outline: 1px solid $secondary-border;
 
-      .dropdown-option {
+      .dropdown-option,
+      .no-data {
         padding: 0.75rem 0.75rem;
+        cursor: default;
+      }
 
+      .dropdown-option {
         &:hover {
           background-color: $secondary-bg;
         }
