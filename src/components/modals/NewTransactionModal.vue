@@ -6,6 +6,7 @@
   import type { Category } from '@/shared/models/category.model';
   import type { Transaction } from '@/shared/models/transaction.model';
   import { CategoryService } from '@/shared/services/category.service';
+  import { TransactionService } from '@/shared/services/transaction.service';
   import { useModalStore } from '@/shared/stores/modal-store';
   import { computed, onMounted, ref, watch } from 'vue';
 
@@ -22,12 +23,17 @@
     transaction.value.categoryId = chosenCategoryId.value;
   });
 
+  const createTransaction = () => {
+    TransactionService.create(transaction.value as Transaction);
+  };
+
   const closeModal = () => {
     modalStore.closeModal();
   };
 
   onMounted(() => {
     CategoryService.getAll().then((res) => {
+      console.log('bite');
       categories.value = res.data;
     });
   });
@@ -81,7 +87,12 @@
     </div>
     <div class="flex justify-content-end align-items-center gap-3">
       <Button text="Cancel" severity="secondary" @click="closeModal()" />
-      <Button text="Confirm" severity="primary" :disabled="disableConfirmationBtn" />
+      <Button
+        text="Confirm"
+        severity="primary"
+        :disabled="disableConfirmationBtn"
+        @click="createTransaction()"
+      />
     </div>
   </div>
 </template>

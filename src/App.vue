@@ -1,4 +1,5 @@
 <script setup lang="ts">
+  import Datepicker from '@/components/ds/Datepicker.vue';
   import { RouterView } from 'vue-router';
   import TransactionsSummary from '@/components/transaction/TransactionsSummary.vue';
   import DashboardCard from '@/components/dashboard/DashboardCard.vue';
@@ -138,6 +139,10 @@
       </div>
     </div>
     <RouterView />
+
+    <div style="height: 300px">
+      <Datepicker />
+    </div>
     <BaseModal />
     <FloatingMenu
       action-button-color="red"

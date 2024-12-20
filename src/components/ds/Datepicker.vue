@@ -75,8 +75,8 @@
 </script>
 
 <template>
-  <div class="col-3">
-    <div class="flex flex-column gap-1">
+  <div class="col-3 datepicker-container">
+    <div class="flex flex-column">
       <div class="flex justify-content-between">
         <button @click="selectPreviousMonth()">&lt;</button>
         <div>{{ Utils.months[selectedMonth] }} {{ selectedYear }}</div>
@@ -90,7 +90,7 @@
         <div class="col day-label">Thu</div>
         <div class="col day-label">Fri</div>
       </div>
-      <div class="flex gap-1" v-for="(week, weekIndex) in calendar" :key="weekIndex">
+      <div class="flex" v-for="(week, weekIndex) in calendar" :key="weekIndex">
         <div
           class="col day"
           :class="{ selected: day == selectedDay, selectable: day != undefined }"
@@ -108,6 +108,10 @@
 <style lang="scss" scoped>
   @import '@/assets/styles/colors';
 
+  .datepicker-container {
+    max-height: 100%;
+  }
+
   button {
     &:hover {
       cursor: pointer;
@@ -120,8 +124,6 @@
   }
 
   .day {
-    background: #e1e1e1;
-
     &.selectable:not(.selected) {
       cursor: pointer;
     }
