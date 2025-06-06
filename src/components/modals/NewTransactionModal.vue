@@ -33,7 +33,6 @@
 
   onMounted(() => {
     CategoryService.getAll().then((res) => {
-      console.log('bite');
       categories.value = res.data;
     });
   });
