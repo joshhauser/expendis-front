@@ -1,16 +1,14 @@
 <script setup lang="ts">
-  import Datepicker from '@/components/ds/Datepicker.vue';
-  import { RouterView } from 'vue-router';
-  import TransactionsSummary from '@/components/transaction/TransactionsSummary.vue';
   import DashboardCard from '@/components/dashboard/DashboardCard.vue';
+  import Datepicker from '@/components/ds/Datepicker.vue';
+  import TransactionsSummary from '@/components/transaction/TransactionsSummary.vue';
   import type { TransactionWithCategory } from '@/shared/models/transaction.model';
-  import ExpensesDistribution from '@/components/transaction/ExpensesDistribution.vue';
 
-  import { useModalStore } from '@/shared/stores/modal-store';
-  import BaseModal from '@/components/ds/ModalWrapper.vue';
   import FloatingMenu from '@/components/ds/FloatingMenu.vue';
-  import { useIconsStore } from '@/shared/stores/icons-store';
+  import BaseModal from '@/components/ds/ModalWrapper.vue';
   import NewTransactionModal from '@/components/modals/NewTransactionModal.vue';
+  import { useIconsStore } from '@/shared/stores/icons-store';
+  import { useModalStore } from '@/shared/stores/modal-store';
 
   const modalStore = useModalStore();
   const iconsStore = useIconsStore();
@@ -117,7 +115,7 @@
           </template>
         </DashboardCard>
       </div>
-      <div class="col-3">
+      <!-- <div class="col-3">
         <DashboardCard>
           <template #title>
             <h3>Derniers mouvements</h3>
@@ -136,9 +134,8 @@
             <TransactionsSummary :transactions="transactions" />
           </template>
         </DashboardCard>
-      </div>
+      </div> -->
     </div>
-    <RouterView />
 
     <div style="height: 300px">
       <Datepicker />
@@ -154,6 +151,7 @@
             openModal();
           },
           backgroundColor: 'blue',
+          label: '',
         },
       ]"
     />
